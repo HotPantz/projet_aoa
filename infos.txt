@@ -1,0 +1,18 @@
+Préciser sa proc son type de ram etc Type de ram
+
+
+expliquer par exemple pourquoi o3 va plus vite que ofast ?
+
+pour cela regarder assembleur :
+
+addsd → vaddsd instruction vectoriel  on s’en fout dans tous les cas c’est un SD donc single double donc il les fait toujours un par deux
+exemple : on passe d’une instruction sse a ssm etc...
+
+
+
+comparer les assembleurs, comment on sait que l’assembleur de droite est meilleur que l’assembleur de gauche etc..
+
+
+si on a des déroulages, l’instruction est effectué plusieurs fois au lieu d’un add 1 on a un add 4 etc. add rsi
+
+on va se rendre compte que dans la version simple on a qu’un add et dans un déroulage on a 4 add
