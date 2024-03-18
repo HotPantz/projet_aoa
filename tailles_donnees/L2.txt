@@ -1,0 +1,7 @@
+CPU : AMD A9 9400
+L1d cache size : 32KB
+L2 cache size : 1024KB
+Taille donnée : 
+	2/3 * taille(L1) < taille(t1)+taille(t2)+... < 0,8*taille(L2)
+	->1024000*2/3 ~ 682600 Bytes / 4 ~ 170500
+	=>170500 32bit floats 
