@@ -1,0 +1,4 @@
+L1 :  taille(t1)+taille(t2) + ...    <= 0,9 * taille(L1)
+L2 :  2/3 * taille(L1) < taille(t1)+taille(t2) + ...    <= 0,8 * taille(L2)
+L3 :  2/3 * taille(L2)  < taille(t1)+taille(t2) + ...    <= 0,5 * taille(L3)
+RAM :  2/3 * taille(L3) < taille(t1)+taille(t2) + ...    <= 500 Mo | 1 Go
