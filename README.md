@@ -32,7 +32,7 @@ Itération sur les étapes précédentes pour continuer à améliorer les perfor
 
 ## Consignes de Réalisation :
 
-Justification de chaque choix effectué tout au long du projet.
-Utilisation de MAQAO, likwid-perfctr, et/ou perf-stat pour l'analyse des performances et des goulets d'étranglement.
-Exploration et application des transformations de boucles pour optimiser le code.
-Optionnellement, parallélisation du code avec des directives OpenMP ou utilisation d'intrinsics pour l'optimisation avancée du code.
+- Justification de chaque choix effectué tout au long du projet.
+- Utilisation de MAQAO, likwid-perfctr, et/ou perf-stat pour l'analyse des performances et des goulets d'étranglement.
+- Exploration et application des transformations de boucles pour optimiser le code.
+- Optionnellement, parallélisation du code avec des directives OpenMP ou utilisation d'intrinsics pour l'optimisation avancée du code.
