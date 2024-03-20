@@ -1,0 +1,4 @@
+CPU : Intel(R) Celeron(R) N4120 CPU @ 1.10GHz
+
+4 194 000 000 / 4 = 1 048 000 000 floats
+
