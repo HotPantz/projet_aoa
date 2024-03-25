@@ -4,21 +4,23 @@
 
 extern uint64_t rdtsc ();
 
-// TODO: adjust for each kernel
-extern void kernel (unsigned n, float a[n][n], float b[n][n], float c[n][n]);
+extern void kernel (unsigned n, double x[n], const double y[n], const double z[n][n]);
 
-// TODO: adjust for each kernel
-static void init_array (int n, float a[n][n]) {
+static void init_array_2D (int n, double a[n][n]) {
    int i, j;
-
    for (i=0; i<n; i++)
       for (j=0; j<n; j++)
-         a[i][j] = (float) rand() / RAND_MAX;
+         a[i][j] = (double) rand() / RAND_MAX;
 }
 
-// TODO: adjust for each kernel
-static void print_array (int n, float a[n][n], const char *output_file_name) {
-   int i, j;
+static void init_array_1D (int n, double a[n]) {
+   int i;
+   for (i=0; i<n; i++)
+      a[i] = (double) rand() / RAND_MAX;
+}
+
+static void print_array (int n, double a[n], const char *output_file_name) {
+   int i;
 
    FILE *fp = fopen (output_file_name, "w");
    if (fp == NULL) {
@@ -26,9 +28,8 @@ static void print_array (int n, float a[n][n], const char *output_file_name) {
       return;
    }
 
-   for (i=0; i<n; i++)
-      for (j=0; j<n; j++)
-         fprintf (fp, "%f\n", a[i][j]);
+   for (i=0; i<n; i++) //1D vector
+         fprintf (fp, "%f\n", a[i]);
 
    fclose (fp);
 }
@@ -44,24 +45,28 @@ int main (int argc, char *argv[]) {
    const unsigned size = atoi (argv[1]); /* problem size */
    const char *output_file_name = argv[2];
 
-   /* allocate arrays. TODO: adjust for each kernel */
-   float (*a)[size] = malloc (size * size * sizeof a[0][0]);
-   float (*b)[size] = malloc (size * size * sizeof b[0][0]);
-   float (*c)[size] = malloc (size * size * sizeof c[0][0]);
+   /* allocate arrays
+       * x : 1D, size 
+       * y : 1D, size
+       * z : 2D, array size*size*/
+   double (*x) = malloc (size * sizeof x[0]);
+   double (*y) = malloc (size * sizeof y[0]);
+   double (*z)[size] = malloc (size * size * sizeof z[0][0]);
 
    /* init arrays */
    srand(0);
-   init_array (size, a);
-   init_array (size, b);
+   init_array_1D (size, x);
+   init_array_1D (size, y);
+   init_array_2D (size, z);
 
    /* print output */
-   kernel (size, a, b, c);
-   print_array (size, c, output_file_name);
+   kernel (size, x, y, z);
+   print_array (size, x, output_file_name);
 
-   /* free arrays. TODO: adjust for each kernel */
-   free (a);
-   free (b);
-   free (c);
+   /* free arrays */
+   free (x);
+   free (y);
+   free (z); //no need for a loop since we're allocating inline
 
    return EXIT_SUCCESS;
 }

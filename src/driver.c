@@ -6,13 +6,10 @@
 
 extern uint64_t rdtsc ();
 
-// TODO: adjust for each kernel
 extern void kernel (unsigned n, double x[n], const double y[n], const double z[n][n]);
 
-// TODO: adjust for each kernel
 static void init_array_2D (int n, double a[n][n]) {
    int i, j;
-
    for (i=0; i<n; i++)
       for (j=0; j<n; j++)
          a[i][j] = (double) rand() / RAND_MAX;
@@ -20,7 +17,6 @@ static void init_array_2D (int n, double a[n][n]) {
 
 static void init_array_1D (int n, double a[n]) {
    int i;
-
    for (i=0; i<n; i++)
       a[i] = (double) rand() / RAND_MAX;
 }
@@ -55,10 +51,13 @@ int main (int argc, char *argv[]) {
 
       unsigned i;
 
-      /* allocate arrays. TODO: adjust for each kernel */
-      double (*z)[size] = malloc (size * size * sizeof z[0][0]);
+      /* allocate arrays
+       * x : 1D, size 
+       * y : 1D, size
+       * z : 2D, array size*size*/
       double (*x) = malloc (size * sizeof x[0]);
       double (*y) = malloc (size * sizeof y[0]);
+      double (*z)[size] = malloc (size * size * sizeof z[0][0]);
 
       /* init arrays */
       srand(0);
@@ -82,13 +81,13 @@ int main (int argc, char *argv[]) {
       const uint64_t t2 = rdtsc();
       tdiff[m] = t2 - t1;
 
-      /* free arrays. TODO: adjust for each kernel */
+      /* free arrays */
       free (x);
       free (y);
-      free (z);
+      free (z); //no need for a loop since we're allocating inline
    }
 
-   const uint64_t nb_inner_iters = size * size * size * repm; // TODO adjust for each kernel
+   const uint64_t nb_inner_iters = size * size * repm; // n^2 iterations in kernel 7
    qsort (tdiff, NB_METAS, sizeof tdiff[0], cmp_uint64);
    printf ("MIN %lu RDTSC-cycles (%.2f per inner-iter)\n",
            tdiff[0], (float) tdiff[0] / nb_inner_iters);

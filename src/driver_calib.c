@@ -7,16 +7,19 @@
 
 extern uint64_t rdtsc ();
 
-// TODO: adjust for each kernel
-extern void kernel (unsigned n, float a[n][n], float b[n][n], float c[n][n]);
+extern void kernel (unsigned n, double x[n], const double y[n], const double z[n][n]);
 
-// TODO: adjust for each kernel
-static void init_array (int n, float a[n][n]) {
+static void init_array_2D (int n, double a[n][n]) {
    int i, j;
-
    for (i=0; i<n; i++)
       for (j=0; j<n; j++)
-         a[i][j] = (float) rand() / RAND_MAX;
+         a[i][j] = (double) rand() / RAND_MAX;
+}
+
+static void init_array_1D (int n, double a[n]) {
+   int i;
+   for (i=0; i<n; i++)
+      a[i] = (double) rand() / RAND_MAX;
 }
 
 static int cmp_uint64 (const void *a, const void *b) {
@@ -48,35 +51,39 @@ int main (int argc, char *argv[]) {
 
       unsigned i;
 
-      /* allocate arrays. TODO: adjust for each kernel */
-      float (*a)[size] = malloc (size * size * sizeof a[0][0]);
-      float (*b)[size] = malloc (size * size * sizeof b[0][0]);
-      float (*c)[size] = malloc (size * size * sizeof c[0][0]);
+      /* allocate arrays
+       * x : 1D, size 
+       * y : 1D, size
+       * z : 2D, array size*size*/
+      double (*x) = malloc (size * sizeof x[0]);
+      double (*y) = malloc (size * sizeof y[0]);
+      double (*z)[size] = malloc (size * size * sizeof z[0][0]);
 
-      /* init arrays */
+       /* init arrays */
       srand(0);
-      init_array (size, a);
-      init_array (size, b);
+      init_array_1D (size, x);
+      init_array_1D (size, y);
+      init_array_2D (size, z);
 
       // No warmup, measure individual instances
       for (i=0; i<repm; i++) {
          const uint64_t t1 = rdtsc();
-         kernel (size, a, b, c);
+         kernel (size, x, y, z);
          const uint64_t t2 = rdtsc();
          tdiff[i][m] = t2 - t1;
       }
 
-      /* free arrays. TODO: adjust for each kernel */
-      free (a);
-      free (b);
-      free (c);
+      /* free arrays */
+      free (x);
+      free (y);
+      free (z); //no need for a loop since we're allocating inline
 
       /* Let some time for processor to cool down and allow capturing stability via next meta-repetitions */
       const struct timespec two_seconds = { .tv_sec = 2, .tv_nsec = 0 };
       nanosleep (&two_seconds, NULL);
    }
 
-   const uint64_t nb_inner_iters = size * size * size; // TODO adjust for each kernel
+   const uint64_t nb_inner_iters = size * size; // n^2 iterations in kernel 7
    int i;
    for (i=0; i<repm; i++) {
       printf ("Instance %u/%u\n", i+1, repm);
