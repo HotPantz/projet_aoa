@@ -1,0 +1,15 @@
+Pinning & setting frequency :
+
+sudo cpupower -c 1 frequency-set -f 2.4GHz
+
+
+#Outputs the results to "calibration_results.txt". I needed to use tee because redirecting stdout
+#impacted the stability of the program, couldn't get bring it down the same level as without output redirection
+sudo taskset -c 1 ./calibrate_gcc_NOOPT 319 25 | tee ../calibration_results.txt
+
+To launch with no GUI :
+systemctl set-default multi-user.target
+systemctl set-default graphical.target
+ifconfig <interface> down
+ifconfig <inteface> up 
+

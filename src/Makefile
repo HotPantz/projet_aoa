@@ -2,15 +2,18 @@ CC=gcc
 CFLAGS=-O2 -g -Wall
 OPTFLAGS=-O3 -g -Wall
 OBJS_COMMON=kernel.o rdtsc.o
+BIN_PATH=../bin/
+
+OPT_OCUSTOM=-O3 -ffinite-math-only -freciprocal-math -fno-math-errno -funsafe-math-optimizations -ffloat-store
 
 all:	check calibrate measure
 
 check:	$(OBJS_COMMON) driver_check.o
-	$(CC) -o $@ $^
+	$(CC) -o $(BIN_PATH)$@_$(CC)_$(OPT) $^
 calibrate: $(OBJS_COMMON) driver_calib.o
-	$(CC) -o $@ $^
+	$(CC) -o $(BIN_PATH)$@_$(CC)_$(OPT) $^
 measure: $(OBJS_COMMON) driver.o
-	$(CC) -o $@ $^
+	$(CC) -o $(BIN_PATH)$@_$(CC)_$(OPT) $^
 
 driver_check.o: driver_check.c
 	$(CC) $(CFLAGS) -D CHECK -c $< -o $@
