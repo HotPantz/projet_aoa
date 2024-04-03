@@ -1,5 +1,13 @@
-#GCC
+#==============================================================================
+#								COMPILERS
+#==============================================================================
 CC=gcc
+ICX=icx
+
+AOCC=/home/euro/aocc-compiler-4.2.0/bin/clang
+AOCC2=/home/sami/Bureau/aocc-compiler-4.2.0/bin/clang
+#==============================================================================
+
 
 #==============================================================================
 #							OPTIMISATION FLAGS
@@ -17,13 +25,14 @@ OPT_OCUSTOM=-O3 -ffinite-math-only -freciprocal-math -fno-math-errno -funsafe-ma
 
 #Specific macros & flags for ICC & Intel CPUs
 
+
 #Specific macros & flags for AOCC & AMD CPUs
-AOCC=/home/euro/aocc-compiler-4.2.0/bin/clang
-AOCC2=/home/sami/Bureau/aocc-compiler-4.2.0/bin/clang
+
 #==============================================================================
 
 OBJS_COMMON=kernel.o rdtsc.o
 OBJS_CUSTOM=kernel_O3.o kernel_OFAST.o kernel_O3NATIVE.o kernel_AVX2.o kernel_OCUSTOM.o kernel_AOCC_O2.o
+OBJS_ICX=kernel_icx_O2.o
 BIN_PATH=../bin/
 
 #==============================================================================
@@ -32,7 +41,7 @@ BIN_PATH=../bin/
 #Default target : everything but AOCC
 all:	check calibrate measure measure_O3 measure_OFast measure_O3NATIVE measure_AVX2 measure_OCUSTOM 
 #Intel Compiler target
-#icc: #TODO: mettez ici les cibles pour les versions Intel ICC
+icx: measure_ICX
 #Custom AOCC target (specific install location)
 fred: measure_AOCC measure_AOCC_03
 sami: measure_AOCC_sami measure_AOCC_O3_sami
@@ -75,6 +84,8 @@ measure_AOCC_sami: kernel_AOCC_O2_sami.o rdtsc.o driver.o
 measure_AOCC_O3_sami: kernel_AOCC_O3_sami.o rdtsc.o driver.o
 	$(AOCC2) -o $(BIN_PATH)$@_$(OPT) $^
 
+measure_ICX: kernel_icx_O2.o rdtsc.o driver.o
+	$(ICX) -o $(BIN_PATH)$@_$(OPT) $^
 
 #==============================================================================
 
@@ -122,7 +133,10 @@ kernel_AOCC_O2_sami.o: kernel.c
 kernel_AOCC_O3_sami.o: kernel.c
 	$(AOCC2) $(OPTFLAGS_O3) -D $(OPT) -c $< -o $@
 
+kernel_icx_O2.o: kernel.c
+	$(ICX) $(OPTFLAGS) -D $(OPT) -c $< -o $@
+
 #==============================================================================
 
 clean:
-	rm -rf $(OBJS_COMMON) $(OBJS_CUSTOM) driver_check.o driver_calib.o driver.o check calibrate measure 
+	rm -rf $(OBJS_COMMON) $(OBJS_CUSTOM) $(OBJS_ICX) driver_check.o driver_calib.o driver.o check calibrate measure 
