@@ -2,7 +2,7 @@
 
 CMD="../bin/calibrate_gcc_NOOPT"
 FREQ="2.4GHz"
-SIZE=310
+SIZE=300
 REPS=25
 
 sudo cpupower -c 1 frequency-set -f $FREQ
