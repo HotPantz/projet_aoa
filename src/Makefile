@@ -19,6 +19,7 @@ OPT_OCUSTOM=-O3 -ffinite-math-only -freciprocal-math -fno-math-errno -funsafe-ma
 
 #Specific macros & flags for AOCC & AMD CPUs
 AOCC=/home/euro/aocc-compiler-4.2.0/bin/clang
+AOCC2=/home/sami/Bureau/aocc-compiler-4.2.0/bin/clang
 #==============================================================================
 
 OBJS_COMMON=kernel.o rdtsc.o
@@ -33,7 +34,8 @@ all:	check calibrate measure measure_O3 measure_OFast measure_O3NATIVE measure_A
 #Intel Compiler target
 #icc: #TODO: mettez ici les cibles pour les versions Intel ICC
 #Custom AOCC target (specific install location)
-fred: measure_AOCC
+fred: measure_AOCC measure_AOCC_03
+sami: measure_AOCC_sami measure_AOCC_O3_sami
 #==============================================================================
 
 check:	$(OBJS_COMMON) driver_check.o
@@ -66,6 +68,14 @@ measure_AOCC: kernel_AOCC_O2.o rdtsc.o driver.o
 
 measure_AOCC_O3: kernel_AOCC_O3.o rdtsc.o driver.o
 	$(AOCC) -o $(BIN_PATH)$@_$(OPT) $^
+
+measure_AOCC_sami: kernel_AOCC_O2_sami.o rdtsc.o driver.o
+	$(AOCC2) -o $(BIN_PATH)$@_$(OPT) $^
+
+measure_AOCC_O3_sami: kernel_AOCC_O3_sami.o rdtsc.o driver.o
+	$(AOCC2) -o $(BIN_PATH)$@_$(OPT) $^
+
+
 #==============================================================================
 
 #==============================================================================
@@ -105,6 +115,13 @@ kernel_AOCC_O2.o: kernel.c
 
 kernel_AOCC_O3.o: kernel.c
 	$(AOCC) $(OPTFLAGS_O3) -D $(OPT) -c $< -o $@
+
+kernel_AOCC_O2_sami.o: kernel.c
+	$(AOCC2) $(OPTFLAGS) -D $(OPT) -c $< -o $@
+
+kernel_AOCC_O3_sami.o: kernel.c
+	$(AOCC2) $(OPTFLAGS_O3) -D $(OPT) -c $< -o $@
+
 #==============================================================================
 
 clean:
