@@ -12,7 +12,7 @@ core=1
 FREQ="2.4GHz"
 
 # Tailles du problème (a modifier selon CPU)
-arg_values=(10 15 25 50 75 100 150 200 250 300 350 400 500 600 700)
+arg_values=(5 10 15 20 25 30 50 60 75 90 100 125 150 175 200 225 250 300 350 400 500 600 700)
 
 sudo cpupower -c 1 frequency-set -f $FREQ
 
