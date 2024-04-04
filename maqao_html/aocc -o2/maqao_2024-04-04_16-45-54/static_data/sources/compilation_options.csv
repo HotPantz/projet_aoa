@@ -1,0 +1,2 @@
+module;src_file;score;issue;opts;
+measure_AOCC_sami_;kernel.c;0;"-g and -grecord-gcc-switches are missing for some functions (possibly ones added by the compiler), it is needed to have more accurate reports. Other recommended flags are: -O2/-O3, -march=(target)";"AMD clang version 16.0.3 (CLANG: AOCC_4.2.0-Build#89 2023_12_13) ";

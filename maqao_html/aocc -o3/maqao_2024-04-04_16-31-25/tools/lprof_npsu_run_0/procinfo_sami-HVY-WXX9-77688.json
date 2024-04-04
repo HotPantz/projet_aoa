@@ -1,0 +1,19 @@
+{
+  "content": {
+    "proc_name"          : "AMD_fam17h_mod60h",
+    "hostname"           : "sami-HVY-WXX9",
+    "architecture_code"  : "2",
+    "uarchitecture_code" : "33",
+    "architecture"       : "x86_64",
+    "uarchitecture"      : "ZEN_V2",
+    "cpui_model_name"    : "AMD Ryzen 5 4600H with Radeon Graphics",
+    "cpui_cache_size"    : "512 KB",
+    "cpui_cpu_cores"     : "6",
+    "max_frequency"          : "3000000",
+    "cur_frequency"      : "2285166",
+    "driver_frequency"   : "acpi-cpufreq",
+    "scaling_governor"   : "userspace",
+    "huge_pages"         : "madvise",
+    "os_version"         : "Linux 5.15.0-101-generic #111-Ubuntu SMP Tue Mar 5 20:16:58 UTC 2024",
+  }
+}

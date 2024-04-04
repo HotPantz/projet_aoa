@@ -1,0 +1,13 @@
+address;source_location;insn;indent
+0x1b80;/home/sami/Bureau/aoa/projet_aoa/src/kernel.c:16;MOVSD	(%R14),%XMM0;
+0x1b85;/home/sami/Bureau/aoa/projet_aoa/src/kernel.c:16;DIVSD	(%RDX,%RBX,8),%XMM0;
+0x1b8a;/home/sami/Bureau/aoa/projet_aoa/src/kernel.c:16;ADDSD	(%RSI,%RBX,8),%XMM0;
+0x1b8f;/home/sami/Bureau/aoa/projet_aoa/src/kernel.c:16;MOVSD	%XMM0,(%RSI,%RBX,8);
+0x1b94;/home/sami/Bureau/aoa/projet_aoa/src/kernel.c:16;MOVSD	(%R14,%RAX,8),%XMM0;
+0x1b9a;/home/sami/Bureau/aoa/projet_aoa/src/kernel.c:16;DIVSD	0x8(%RDX,%RBX,8),%XMM0;
+0x1ba0;/home/sami/Bureau/aoa/projet_aoa/src/kernel.c:16;ADDSD	0x8(%RSI,%RBX,8),%XMM0;
+0x1ba6;/home/sami/Bureau/aoa/projet_aoa/src/kernel.c:16;MOVSD	%XMM0,0x8(%RSI,%RBX,8);
+0x1bac;/home/sami/Bureau/aoa/projet_aoa/src/kernel.c:15;ADD	$0x2,%RBX;
+0x1bb0;/home/sami/Bureau/aoa/projet_aoa/src/kernel.c:15;ADD	%R9,%R14;
+0x1bb3;/home/sami/Bureau/aoa/projet_aoa/src/kernel.c:15;CMP	%RBX,%R8;
+0x1bb6;/home/sami/Bureau/aoa/projet_aoa/src/kernel.c:15;JNE	1b80 <kernel+0x60>;

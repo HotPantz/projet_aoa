@@ -1,0 +1,13 @@
+address;source_location;insn;indent
+0x1b80;:0;MOVSD	(%R14),%XMM0;
+0x1b85;:0;DIVSD	(%RDX,%RBX,8),%XMM0;
+0x1b8a;:0;ADDSD	(%RSI,%RBX,8),%XMM0;
+0x1b8f;:0;MOVSD	%XMM0,(%RSI,%RBX,8);
+0x1b94;:0;MOVSD	(%R14,%RAX,8),%XMM0;
+0x1b9a;:0;DIVSD	0x8(%RDX,%RBX,8),%XMM0;
+0x1ba0;:0;ADDSD	0x8(%RSI,%RBX,8),%XMM0;
+0x1ba6;:0;MOVSD	%XMM0,0x8(%RSI,%RBX,8);
+0x1bac;:0;ADD	$0x2,%RBX;
+0x1bb0;:0;ADD	%R9,%R14;
+0x1bb3;:0;CMP	%RBX,%R8;
+0x1bb6;:0;JNE	1b80 <kernel+0x60>;

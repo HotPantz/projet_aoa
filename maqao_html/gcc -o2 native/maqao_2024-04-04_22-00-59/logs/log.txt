@@ -1,0 +1,6 @@
+********************************************************************************
+MAQAO 2.19.0 - 10b41bf83a578066b525a917f2e4ea8371e272af::20240119-161848 || 2024/01/19
+maqao oneview -R1 -- ./measure_O3NATIVE_gcc_NOOPT 300 20 25 
+CPY:  [true] ./measure_O3NATIVE_gcc_NOOPT --> /home/sami/Bureau/aoa/projet_aoa/bin/maqao_2024-04-04_22-00-59/binaries/measure_O3NATIVE_gcc_NOOPT
+CMD:   /opt/maqao/bin/maqao lprof  --xp="/home/sami/Bureau/aoa/projet_aoa/bin/maqao_2024-04-04_22-00-59/tools/lprof_npsu_run_0" --mpi-command=""   -- /home/sami/Bureau/aoa/projet_aoa/bin/maqao_2024-04-04_22-00-59/binaries/measure_O3NATIVE_gcc_NOOPT  300 20 25
+CMD:  /opt/maqao/bin/maqao otter  -input=/home/sami/Bureau/aoa/projet_aoa/bin/maqao_2024-04-04_22-00-59/OTTER/input_manifest.csv -output=/home/sami/Bureau/aoa/projet_aoa/bin/maqao_2024-04-04_22-00-59/OTTER/output_manifest.csv

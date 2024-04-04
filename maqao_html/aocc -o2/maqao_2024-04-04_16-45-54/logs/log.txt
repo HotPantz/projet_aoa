@@ -1,0 +1,6 @@
+********************************************************************************
+MAQAO 2.19.0 - 10b41bf83a578066b525a917f2e4ea8371e272af::20240119-161848 || 2024/01/19
+maqao oneview -R1 -- ./measure_AOCC_sami_ 300 20 25 
+CPY:  [true] ./measure_AOCC_sami_ --> /home/sami/Bureau/aoa/projet_aoa/bin/maqao_2024-04-04_16-45-54/binaries/measure_AOCC_sami_
+CMD:   /opt/maqao/bin/maqao lprof  --xp="/home/sami/Bureau/aoa/projet_aoa/bin/maqao_2024-04-04_16-45-54/tools/lprof_npsu_run_0" --mpi-command=""   -- /home/sami/Bureau/aoa/projet_aoa/bin/maqao_2024-04-04_16-45-54/binaries/measure_AOCC_sami_  300 20 25
+CMD:  /opt/maqao/bin/maqao otter  -input=/home/sami/Bureau/aoa/projet_aoa/bin/maqao_2024-04-04_16-45-54/OTTER/input_manifest.csv -output=/home/sami/Bureau/aoa/projet_aoa/bin/maqao_2024-04-04_16-45-54/OTTER/output_manifest.csv

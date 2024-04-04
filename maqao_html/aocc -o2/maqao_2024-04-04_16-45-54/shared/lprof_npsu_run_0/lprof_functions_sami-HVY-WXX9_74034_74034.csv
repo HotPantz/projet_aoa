@@ -1,0 +1,4 @@
+function_id;module;function_name;source_info;time_p;time_s;time_s_min;time_s_avg;time_s_max;cov_deviation;time_deviation;nb_threads;cats;label_name;flops;
+5;measure_AOCC_sami_;kernel;kernel.c:11-19;76.19;0.16;;;;;;;"100,0,0,0,0,0,0,0,0,0";kernel;;
+240;libc.so.6;random;;16.67;0.03;;;;;;;"0,0,0,0,0,0,0,0,0,100";random;;
+244;libc.so.6;random_r;;7.14;0.01;;;;;;;"0,0,0,0,0,0,0,0,0,100";random_r;;

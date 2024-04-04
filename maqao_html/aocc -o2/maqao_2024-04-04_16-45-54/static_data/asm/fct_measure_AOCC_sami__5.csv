@@ -1,0 +1,62 @@
+address;source_location;insn;indent
+0x1b20;/home/sami/Bureau/aoa/projet_aoa/src/kernel.c:11;PUSH	%R15;
+0x1b22;/home/sami/Bureau/aoa/projet_aoa/src/kernel.c:11;PUSH	%R14;
+0x1b24;/home/sami/Bureau/aoa/projet_aoa/src/kernel.c:11;PUSH	%RBX;
+0x1b25;/home/sami/Bureau/aoa/projet_aoa/src/kernel.c:14;TEST	%EDI,%EDI;
+0x1b27;/home/sami/Bureau/aoa/projet_aoa/src/kernel.c:14;JE	1be1 <kernel+0xc1>;
+0x1b2d;/home/sami/Bureau/aoa/projet_aoa/src/kernel.c:14;MOV	%EDI,%EAX;
+0x1b2f;/home/sami/Bureau/aoa/projet_aoa/src/kernel.c:14;MOV	%EAX,%R8D;
+0x1b32;/home/sami/Bureau/aoa/projet_aoa/src/kernel.c:14;AND	$-0x2,%R8D;
+0x1b36;/home/sami/Bureau/aoa/projet_aoa/src/kernel.c:14;MOV	%RAX,%R9;
+0x1b39;/home/sami/Bureau/aoa/projet_aoa/src/kernel.c:14;SAL	$0x4,%R9;
+0x1b3d;/home/sami/Bureau/aoa/projet_aoa/src/kernel.c:14;XOR	%R10D,%R10D;
+0x1b40;/home/sami/Bureau/aoa/projet_aoa/src/kernel.c:14;MOV	%RCX,%R11;
+0x1b43;/home/sami/Bureau/aoa/projet_aoa/src/kernel.c:14;JMP	1b60 <kernel+0x40>;
+0x1b45;/home/sami/Bureau/aoa/projet_aoa/src/kernel.c:14;NOPW	%CS:(%RAX,%RAX,1);
+0x1b50;/home/sami/Bureau/aoa/projet_aoa/src/kernel.c:14;INC	%R10;(1) 
+0x1b53;/home/sami/Bureau/aoa/projet_aoa/src/kernel.c:14;ADD	$0x8,%R11;(1) 
+0x1b57;/home/sami/Bureau/aoa/projet_aoa/src/kernel.c:14;CMP	%RAX,%R10;(1) 
+0x1b5a;/home/sami/Bureau/aoa/projet_aoa/src/kernel.c:14;JE	1be1 <kernel+0xc1>;(1) 
+0x1b60;/home/sami/Bureau/aoa/projet_aoa/src/kernel.c:14;CMP	$0x1,%EDI;(1) 
+0x1b63;/home/sami/Bureau/aoa/projet_aoa/src/kernel.c:15;JNE	1b70 <kernel+0x50>;(1) 
+0x1b65;/home/sami/Bureau/aoa/projet_aoa/src/kernel.c:15;XOR	%EBX,%EBX;(1) 
+0x1b67;/home/sami/Bureau/aoa/projet_aoa/src/kernel.c:15;JMP	1bb8 <kernel+0x98>;(1) 
+0x1b69;/home/sami/Bureau/aoa/projet_aoa/src/kernel.c:15;NOPL	(%RAX);
+0x1b70;/home/sami/Bureau/aoa/projet_aoa/src/kernel.c:15;MOV	%R11,%R14;(1) 
+0x1b73;/home/sami/Bureau/aoa/projet_aoa/src/kernel.c:15;XOR	%EBX,%EBX;(1) 
+0x1b75;/home/sami/Bureau/aoa/projet_aoa/src/kernel.c:15;NOPW	%CS:(%RAX,%RAX,1);(1) 
+0x1b80;/home/sami/Bureau/aoa/projet_aoa/src/kernel.c:16;MOVSD	(%R14),%XMM0;  (0) 
+0x1b85;/home/sami/Bureau/aoa/projet_aoa/src/kernel.c:16;DIVSD	(%RDX,%RBX,8),%XMM0;  (0) 
+0x1b8a;/home/sami/Bureau/aoa/projet_aoa/src/kernel.c:16;ADDSD	(%RSI,%RBX,8),%XMM0;  (0) 
+0x1b8f;/home/sami/Bureau/aoa/projet_aoa/src/kernel.c:16;MOVSD	%XMM0,(%RSI,%RBX,8);  (0) 
+0x1b94;/home/sami/Bureau/aoa/projet_aoa/src/kernel.c:16;MOVSD	(%R14,%RAX,8),%XMM0;  (0) 
+0x1b9a;/home/sami/Bureau/aoa/projet_aoa/src/kernel.c:16;DIVSD	0x8(%RDX,%RBX,8),%XMM0;  (0) 
+0x1ba0;/home/sami/Bureau/aoa/projet_aoa/src/kernel.c:16;ADDSD	0x8(%RSI,%RBX,8),%XMM0;  (0) 
+0x1ba6;/home/sami/Bureau/aoa/projet_aoa/src/kernel.c:16;MOVSD	%XMM0,0x8(%RSI,%RBX,8);  (0) 
+0x1bac;/home/sami/Bureau/aoa/projet_aoa/src/kernel.c:15;ADD	$0x2,%RBX;  (0) 
+0x1bb0;/home/sami/Bureau/aoa/projet_aoa/src/kernel.c:15;ADD	%R9,%R14;  (0) 
+0x1bb3;/home/sami/Bureau/aoa/projet_aoa/src/kernel.c:15;CMP	%RBX,%R8;  (0) 
+0x1bb6;/home/sami/Bureau/aoa/projet_aoa/src/kernel.c:15;JNE	1b80 <kernel+0x60>;  (0) 
+0x1bb8;/home/sami/Bureau/aoa/projet_aoa/src/kernel.c:15;TEST	$0x1,%AL;(1) 
+0x1bba;/home/sami/Bureau/aoa/projet_aoa/src/kernel.c:15;JE	1b50 <kernel+0x30>;(1) 
+0x1bbc;/home/sami/Bureau/aoa/projet_aoa/src/kernel.c:15;LEA	(%RCX,%R10,8),%R14;(1) 
+0x1bc0;/home/sami/Bureau/aoa/projet_aoa/src/kernel.c:16;MOV	%RBX,%R15;(1) 
+0x1bc3;/home/sami/Bureau/aoa/projet_aoa/src/kernel.c:16;IMUL	%RAX,%R15;(1) 
+0x1bc7;/home/sami/Bureau/aoa/projet_aoa/src/kernel.c:16;MOVSD	(%R14,%R15,8),%XMM0;(1) 
+0x1bcd;/home/sami/Bureau/aoa/projet_aoa/src/kernel.c:16;DIVSD	(%RDX,%RBX,8),%XMM0;(1) 
+0x1bd2;/home/sami/Bureau/aoa/projet_aoa/src/kernel.c:16;ADDSD	(%RSI,%RBX,8),%XMM0;(1) 
+0x1bd7;/home/sami/Bureau/aoa/projet_aoa/src/kernel.c:16;MOVSD	%XMM0,(%RSI,%RBX,8);(1) 
+0x1bdc;/home/sami/Bureau/aoa/projet_aoa/src/kernel.c:16;JMP	1b50 <kernel+0x30>;(1) 
+0x1be1;/home/sami/Bureau/aoa/projet_aoa/src/kernel.c:19;POP	%RBX;
+0x1be2;/home/sami/Bureau/aoa/projet_aoa/src/kernel.c:19;POP	%R14;
+0x1be4;/home/sami/Bureau/aoa/projet_aoa/src/kernel.c:19;POP	%R15;
+0x1be6;/home/sami/Bureau/aoa/projet_aoa/src/kernel.c:19;RET;
+0x1be7;:0;INT	$0x3;
+0x1be8;:0;INT	$0x3;
+0x1be9;:0;INT	$0x3;
+0x1bea;:0;INT	$0x3;
+0x1beb;:0;INT	$0x3;
+0x1bec;:0;INT	$0x3;
+0x1bed;:0;INT	$0x3;
+0x1bee;:0;INT	$0x3;
+0x1bef;:0;INT	$0x3;

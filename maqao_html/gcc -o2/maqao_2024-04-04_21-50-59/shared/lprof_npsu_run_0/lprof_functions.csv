@@ -1,0 +1,3 @@
+function_id;module;function_name;source_info;time_p;time_s;time_s_min;time_s_avg;time_s_max;cov_deviation;time_deviation;nb_threads;cats;label_name;flops;
+7;measure_gcc_NOOPT;kernel;kernel.c:11-19;81.25;0.06;0.06;0.06;0.06;0;0;1;"100,0,0,0,0,0,0,0,0,0";kernel;;
+240;libc.so.6;random;;18.75;0.01;0.01;0.01;0.01;0;0;1;"0,0,0,0,0,0,0,0,0,100";random;;

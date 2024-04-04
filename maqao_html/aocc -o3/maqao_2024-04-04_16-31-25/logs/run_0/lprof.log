@@ -1,0 +1,75 @@
+
+* Warning: perf-events measurements are not allowed on node sami-HVY-WXX9: selecting the no-perf engine. Try:
+sudo sysctl -w kernel.perf_event_paranoid=1 (*)
+To persist across reboots:
+ sudo sh -c 'echo kernel.perf_event_paranoid=1 >> /etc/sysctl.d/local.conf' (*)
+(*) requires sudo permissions. If missing, contact administrators.
+=1 allows both kernel+user-space measurements (=2: only user-space)
+
+* Warning: The 'no-perf' engine is feature-limited and suffers higher overhead than other engines. It should be used only when perf-events are not available on the running Linux kernel - for instance with WSL1 (Windows Subsystem for Linux version 1) - or when the paranoid level (as displayed by 'sysctl kernel.perf_event_paranoid') cannot be lowered to 2 or less.
+
+* Info: Process launched (host sami-HVY-WXX9, process 77688)Metarepetition 1/31: running 20 warmup instances and 25 measure instances
+Metarepetition 2/31: running 1 warmup instances and 25 measure instances
+Metarepetition 3/31: running 1 warmup instances and 25 measure instances
+Metarepetition 4/31: running 1 warmup instances and 25 measure instances
+Metarepetition 5/31: running 1 warmup instances and 25 measure instances
+Metarepetition 6/31: running 1 warmup instances and 25 measure instances
+Metarepetition 7/31: running 1 warmup instances and 25 measure instances
+Metarepetition 8/31: running 1 warmup instances and 25 measure instances
+Metarepetition 9/31: running 1 warmup instances and 25 measure instances
+Metarepetition 10/31: running 1 warmup instances and 25 measure instances
+Metarepetition 11/31: running 1 warmup instances and 25 measure instances
+Metarepetition 12/31: running 1 warmup instances and 25 measure instances
+Metarepetition 13/31: running 1 warmup instances and 25 measure instances
+Metarepetition 14/31: running 1 warmup instances and 25 measure instances
+Metarepetition 15/31: running 1 warmup instances and 25 measure instances
+Metarepetition 16/31: running 1 warmup instances and 25 measure instances
+Metarepetition 17/31: running 1 warmup instances and 25 measure instances
+Metarepetition 18/31: running 1 warmup instances and 25 measure instances
+Metarepetition 19/31: running 1 warmup instances and 25 measure instances
+Metarepetition 20/31: running 1 warmup instances and 25 measure instances
+Metarepetition 21/31: running 1 warmup instances and 25 measure instances
+Metarepetition 22/31: running 1 warmup instances and 25 measure instances
+Metarepetition 23/31: running 1 warmup instances and 25 measure instances
+Metarepetition 24/31: running 1 warmup instances and 25 measure instances
+Metarepetition 25/31: running 1 warmup instances and 25 measure instances
+Metarepetition 26/31: running 1 warmup instances and 25 measure instances
+Metarepetition 27/31: running 1 warmup instances and 25 measure instances
+Metarepetition 28/31: running 1 warmup instances and 25 measure instances
+Metarepetition 29/31: running 1 warmup instances and 25 measure instances
+Metarepetition 30/31: running 1 warmup instances and 25 measure instances
+Metarepetition 31/31: running 1 warmup instances and 25 measure instances
+MIN 8456370 RDTSC-cycles (3.76 per inner-iter)
+MED 8797170 RDTSC-cycles (3.91 per inner-iter)
+GOOD STABILITY: 4.03 %
+
+* Info: Process finished (host sami-HVY-WXX9, process 77688)
+* Warning: Run too short with the given sampling rate (only 25 time-related samples collected). Results may lack precision. Rerun with a longer workload or with sampling-rate=high.
+
+* Warning: Restricted access to kernel symbols: 
+to see kernel functions in profiling results, reprofile as root 
+or execute sudo sysctl -w kernel.kptr_restrict=0.
+To make kptr_restrict=0 persist across reboots:
+ sudo sh -c "echo kernel.kptr_restrict=0 >> /etc/sysctl.d/local.conf"
+
+* Info: Dumping samples (host sami-HVY-WXX9, process 77688)
+* Info: Dumping source info for callchain nodes (host sami-HVY-WXX9, process 77688)
+* Info: Building/writing metadata (host sami-HVY-WXX9)
+* Info: Finished collect step (host sami-HVY-WXX9, process 77688)
+
+Your experiment path is /home/sami/Bureau/aoa/projet_aoa/bin/maqao_2024-04-04_20-53-38/tools/lprof_npsu_run_0
+
+To display your profiling results:
+#################################################################################################################################################
+#    LEVEL    |     REPORT     |                                                    COMMAND                                                     #
+#################################################################################################################################################
+#  Functions  |  Cluster-wide  |  maqao lprof -df xp=/home/sami/Bureau/aoa/projet_aoa/bin/maqao_2024-04-04_20-53-38/tools/lprof_npsu_run_0      #
+#  Functions  |  Per-node      |  maqao lprof -df -dn xp=/home/sami/Bureau/aoa/projet_aoa/bin/maqao_2024-04-04_20-53-38/tools/lprof_npsu_run_0  #
+#  Functions  |  Per-process   |  maqao lprof -df -dp xp=/home/sami/Bureau/aoa/projet_aoa/bin/maqao_2024-04-04_20-53-38/tools/lprof_npsu_run_0  #
+#  Functions  |  Per-thread    |  maqao lprof -df -dt xp=/home/sami/Bureau/aoa/projet_aoa/bin/maqao_2024-04-04_20-53-38/tools/lprof_npsu_run_0  #
+#  Loops      |  Cluster-wide  |  maqao lprof -dl xp=/home/sami/Bureau/aoa/projet_aoa/bin/maqao_2024-04-04_20-53-38/tools/lprof_npsu_run_0      #
+#  Loops      |  Per-node      |  maqao lprof -dl -dn xp=/home/sami/Bureau/aoa/projet_aoa/bin/maqao_2024-04-04_20-53-38/tools/lprof_npsu_run_0  #
+#  Loops      |  Per-process   |  maqao lprof -dl -dp xp=/home/sami/Bureau/aoa/projet_aoa/bin/maqao_2024-04-04_20-53-38/tools/lprof_npsu_run_0  #
+#  Loops      |  Per-thread    |  maqao lprof -dl -dt xp=/home/sami/Bureau/aoa/projet_aoa/bin/maqao_2024-04-04_20-53-38/tools/lprof_npsu_run_0  #
+#################################################################################################################################################
+
