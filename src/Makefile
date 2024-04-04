@@ -41,7 +41,7 @@ BIN_PATH=../bin/
 #Default target : everything but AOCC
 all:	check calibrate measure measure_O3 measure_OFast measure_O3NATIVE measure_AVX2 measure_OCUSTOM 
 #Intel Compiler target
-icx: measure_ICX
+icx: measure_ICX measure_ICX_O3
 #Custom AOCC target (specific install location)
 fred: measure_AOCC measure_AOCC_03
 sami: measure_AOCC_sami measure_AOCC_O3_sami
@@ -85,6 +85,9 @@ measure_AOCC_O3_sami: kernel_AOCC_O3_sami.o rdtsc.o driver.o
 	$(AOCC2) -o $(BIN_PATH)$@_$(OPT) $^
 
 measure_ICX: kernel_icx_O2.o rdtsc.o driver.o
+	$(ICX) -o $(BIN_PATH)$@_$(OPT) $^
+
+measure_ICX_O3: kernel_icx_O2.o rdtsc.o driver.o
 	$(ICX) -o $(BIN_PATH)$@_$(OPT) $^
 
 #==============================================================================
@@ -135,6 +138,9 @@ kernel_AOCC_O3_sami.o: kernel.c
 
 kernel_icx_O2.o: kernel.c
 	$(ICX) $(OPTFLAGS) -D $(OPT) -c $< -o $@
+
+kernel_icx_O3.o: kernel.c
+	$(ICX) $(OPTFLAGS_O3) -D $(OPT) -c $< -o $@
 
 #==============================================================================
 
