@@ -43,7 +43,7 @@ all:	check calibrate measure measure_O3 measure_OFast measure_O3NATIVE measure_A
 #Intel Compiler target
 icx: measure_ICX measure_ICX_O3
 #Custom AOCC target (specific install location)
-fred: measure_AOCC measure_AOCC_03
+fred: measure_AOCC measure_AOCC_O3
 sami: measure_AOCC_sami measure_AOCC_O3_sami
 #==============================================================================
 
