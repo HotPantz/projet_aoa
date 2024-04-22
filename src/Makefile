@@ -45,6 +45,7 @@ icx: measure_ICX measure_ICX_O3
 #Custom AOCC target (specific install location)
 fred: measure_AOCC measure_AOCC_03
 sami: measure_AOCC_sami measure_AOCC_O3_sami
+phase2: measure_phase2
 #==============================================================================
 
 check:	$(OBJS_COMMON) driver_check.o
@@ -89,6 +90,9 @@ measure_ICX: kernel_icx_O2.o rdtsc.o driver.o
 
 measure_ICX_O3: kernel_icx_O2.o rdtsc.o driver.o
 	$(ICX) -o $(BIN_PATH)$@_$(OPT) $^
+
+measure_phase2: $(OBJS_COMMON) driver.o
+	$(CC) -o $(BIN_PATH)$@_$(OPT) $^
 
 #==============================================================================
 
