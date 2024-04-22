@@ -17,11 +17,11 @@ CFLAGS=-O2 -g -Wall
 
 #General flags (for all CPUs)
 OPTFLAGS=-O2 -g -Wall #Default "measure" : -O2
-OPTFLAGS_O3=-O3 
-OPTFLAGS_O3NATIVE=-O3 -march=native
-OPTFLAGS_OFAST=-Ofast
-OPTFLAGS_AVX2=-O3 -mavx2 #YMM vectorization
-OPT_OCUSTOM=-O3 -ffinite-math-only -freciprocal-math -fno-math-errno -funsafe-math-optimizations -ffloat-store
+OPTFLAGS_O3=-O3 -g
+OPTFLAGS_O3NATIVE=-O3 -march=native -g
+OPTFLAGS_OFAST=-Ofast -g
+OPTFLAGS_AVX2=-O3 -mavx2 -g #YMM vectorization 
+OPT_OCUSTOM=-O3 -ffinite-math-only -freciprocal-math -fno-math-errno -funsafe-math-optimizations -ffloat-store -g
 
 #Specific macros & flags for ICC & Intel CPUs
 
@@ -43,7 +43,7 @@ all:	check calibrate measure measure_O3 measure_OFast measure_O3NATIVE measure_A
 #Intel Compiler target
 icx: measure_ICX measure_ICX_O3
 #Custom AOCC target (specific install location)
-fred: measure_AOCC measure_AOCC_O3
+fred: measure_AOCC measure_AOCC_03
 sami: measure_AOCC_sami measure_AOCC_O3_sami
 #==============================================================================
 
