@@ -69,11 +69,11 @@ void kernel (unsigned n, float x[n], const float y[n], const float z[n][n]) {
 
 #elif defined TILING
 /* loop tiling */
-void kernel (unsigned n, double x[n], const double y[n], const double z[n][n]) {
+void kernel(unsigned n, double x[n], const double y[n], const double z[n][n]) {
     unsigned i, j, ii, jj;
-    unsigned tile_size = 16; // adjust the tile size as needed
+    unsigned tile_size = 16; // ajustez la taille du bloc au besoin
 
-    int n_max = n - (n % tile_size);
+    unsigned n_max = n - (n % tile_size);
     for (ii = 0; ii < n_max; ii += tile_size) {
         for (jj = 0; jj < n_max; jj += tile_size) {
             for (i = ii; i < ii + tile_size; i++) {
@@ -84,12 +84,12 @@ void kernel (unsigned n, double x[n], const double y[n], const double z[n][n]) {
         }
     }
 
-    for (i = n_max; i < n; j++) {
-        for (j = n_max; j < n; i++) {
+    // Boucle pour les éléments restants qui ne rentrent pas dans le bloc
+    for (i = n_max; i < n; i++) {
+        for (j = 0; j < n; j++) {
             x[i] += z[i][j] / y[i];
         }
-   }
-
+    }
 }
 
 #else
