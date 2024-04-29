@@ -67,7 +67,30 @@ void kernel (unsigned n, float x[n], const float y[n], const float z[n][n]) {
    }
 }
 
-#elif defined OPT2
+#elif defined TILING
+/* loop tiling */
+void kernel (unsigned n, double x[n], const double y[n], const double z[n][n]) {
+    unsigned i, j, ii, jj;
+    unsigned tile_size = 16; // adjust the tile size as needed
+
+    int n_max = n - (n % tile_size);
+    for (jj = 0; jj < n_max; jj += tile_size) {
+        for (ii = 0; ii < n_max; ii += tile_size) {
+            for (j = jj; j < jj + tile_size; j++) {
+                for (i = ii; i < ii + tile_size; i++) {
+                    x[i] += z[i][j] / y[i];
+                }
+            }
+        }
+    }
+
+    for (j = n_max; j < n; j++) {
+        for (i = n_max; i < n; i++) {
+            x[i] += z[i][j] / y[i];
+        }
+   }
+
+}
 
 #else
 /* original */
