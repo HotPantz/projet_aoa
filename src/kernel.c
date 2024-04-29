@@ -32,8 +32,8 @@ void kernel(unsigned n, double x[n], const double y[n], const double z[n][n]) {
 void kernel (unsigned n, double x[n], const double y[n], const double z[n][n]) {
    unsigned i, j;
 
-   for (j = 0; j < n; j++) {
-        for (i = 0; i < n; i++) {
+   for (i = 0; i < n; i++) {
+        for (j = 0; j < n; j++) {
             x[i] += z[i][j] * 1 / (y[i]);
         }
    }
@@ -48,8 +48,8 @@ void kernel (unsigned n, double x[n], double y[n], const double z[n][n]) {
         y[1] = 1 / y[i];
     }
 
-   for (j = 0; j < n; j++) {
-        for (i = 0; i < n; i++) {
+   for (i = 0; i < n; i++) {
+        for (j = 0; j < n; j++) {
             x[i] += z[i][j] * y[i];
         }
    }
@@ -60,8 +60,8 @@ void kernel (unsigned n, double x[n], double y[n], const double z[n][n]) {
 void kernel (unsigned n, float x[n], const float y[n], const float z[n][n]) {
    unsigned i, j;
 
-   for (j = 0; j < n; j++) {
-        for (i = 0; i < n; i++) {
+   for (i = 0; i < n; i++) {
+        for (j = 0; j < n; j++) {
             x[i] += z[i][j] / y[i];
         }
    }
@@ -74,18 +74,18 @@ void kernel (unsigned n, double x[n], const double y[n], const double z[n][n]) {
     unsigned tile_size = 16; // adjust the tile size as needed
 
     int n_max = n - (n % tile_size);
-    for (jj = 0; jj < n_max; jj += tile_size) {
-        for (ii = 0; ii < n_max; ii += tile_size) {
-            for (j = jj; j < jj + tile_size; j++) {
-                for (i = ii; i < ii + tile_size; i++) {
+    for (ii = 0; ii < n_max; ii += tile_size) {
+        for (jj = 0; jj < n_max; jj += tile_size) {
+            for (i = ii; i < ii + tile_size; i++) {
+                for (j = jj; j < jj + tile_size; j++) {
                     x[i] += z[i][j] / y[i];
                 }
             }
         }
     }
 
-    for (j = n_max; j < n; j++) {
-        for (i = n_max; i < n; i++) {
+    for (i = n_max; i < n; j++) {
+        for (j = n_max; j < n; i++) {
             x[i] += z[i][j] / y[i];
         }
    }
