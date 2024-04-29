@@ -1,5 +1,5 @@
 #ifdef PERMUTATION
-void kernel (unsigned n, double x[n], const double y[n], const double z[n][n]) {
+void kernel(unsigned n, double x[n], const double y[n], const double z[n][n]) {
    unsigned i, j;
 
    for (i = 0; i < n; i++) {
@@ -9,12 +9,27 @@ void kernel (unsigned n, double x[n], const double y[n], const double z[n][n]) {
    }
 }
 
-#elif defined OPT2
+#elif defined UNROLLING
+void kernel(unsigned n, double x[n], const double y[n], const double z[n][n]) {
+    unsigned i, j;
 
-/* OPT code 2 */
+    for (i = 0; i < n; i++) {
+        // Déroulage de la boucle par 4
+        for (j = 0; j < n - 3; j += 4) {
+            x[i] += z[i][j] / y[i];
+            x[i] += z[i][j + 1] / y[i];
+            x[i] += z[i][j + 2] / y[i];
+            x[i] += z[i][j + 3] / y[i];
+        }
+
+        // Traitement des éléments restants si n n'est pas divisible par 4
+        for (; j < n; j++) {
+            x[i] += z[i][j] / y[i];
+        }
+    }
+}
 
 #else
-
 /* original */
 void kernel (unsigned n, double x[n], const double y[n], const double z[n][n]) {
    unsigned i, j;
