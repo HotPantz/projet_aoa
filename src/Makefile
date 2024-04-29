@@ -111,7 +111,11 @@ driver.o: driver.c
 # 						DIFFERENT KERNELS
 #==============================================================================
 kernel.o: kernel.c
-	$(CC) $(OPTFLAGS) -D $(OPT) -c $< -o $@
+ifeq ($(OPT),TILING)
+    $(CC) $(OPTFLAGS) -D $(OPT) -c $< -o $@ -lm
+else
+    $(CC) $(OPTFLAGS) -D $(OPT) -c $< -o $@
+endif
 
 kernel_O3.o: kernel.c
 	$(CC) $(OPTFLAGS_O3) -D $(OPT) -c $< -o $@
