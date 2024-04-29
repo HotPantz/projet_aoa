@@ -57,7 +57,7 @@ void kernel (unsigned n, double x[n], double y[n], const double z[n][n]) {
 
 #elif defined DOUBLETOSIMPLE
 
-void kernel (unsigned n, float x[n], const double y[n], const double z[n][n]) {
+void kernel (unsigned n, float x[n], const float y[n], const float z[n][n]) {
    unsigned i, j;
 
    for (j = 0; j < n; j++) {

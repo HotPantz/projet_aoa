@@ -8,18 +8,32 @@ extern uint64_t rdtsc ();
 
 extern void kernel (unsigned n, double x[n], const double y[n], const double z[n][n]);
 
-static void init_array_2D (int n, double a[n][n]) {
-   int i, j;
-   for (i=0; i<n; i++)
-      for (j=0; j<n; j++)
-         a[i][j] = (double) rand() / RAND_MAX;
-}
+#ifdef DOUBLETOSIMPLE
+   static void init_array_2D (int n, float a[n][n]){
+      int i, j;
+      for (i=0; i<n; i++)
+         for (j=0; j<n; j++)
+            a[i][j] = (float) rand() / RAND_MAX;
+   }
+   static void init_array_1D (int n, float a[n]){
+      int i;
+      for (i=0; i<n; i++)
+         a[i] = (float) rand() / RAND_MAX;
+   }
+#else
+   static void init_array_2D (int n, double a[n][n]) {
+      int i, j;
+      for (i=0; i<n; i++)
+         for (j=0; j<n; j++)
+            a[i][j] = (double) rand() / RAND_MAX;
+   }
 
-static void init_array_1D (int n, double a[n]) {
-   int i;
-   for (i=0; i<n; i++)
-      a[i] = (double) rand() / RAND_MAX;
-}
+   static void init_array_1D (int n, double a[n]) {
+      int i;
+      for (i=0; i<n; i++)
+         a[i] = (double) rand() / RAND_MAX;
+   }
+#endif
 
 static int cmp_uint64 (const void *a, const void *b) {
    const uint64_t va = *((uint64_t *) a);
@@ -55,9 +69,15 @@ int main (int argc, char *argv[]) {
        * x : 1D, size 
        * y : 1D, size
        * z : 2D, array size*size*/
-      double (*x) = malloc (size * sizeof x[0]);
-      double (*y) = malloc (size * sizeof y[0]);
-      double (*z)[size] = malloc (size * size * sizeof z[0][0]);
+      #ifdef DOUBLETOSIMPLE
+         float (*x) = malloc (size * sizeof x[0]);
+         float (*y) = malloc (size * sizeof y[0]);
+         float (*z)[size] = malloc (size * size * sizeof z[0][0]);
+      #else
+         double (*x) = malloc (size * sizeof x[0]);
+         double (*y) = malloc (size * sizeof y[0]);
+         double (*z)[size] = malloc (size * size * sizeof z[0][0]);
+      #endif
 
       /* init arrays */
       srand(0);
