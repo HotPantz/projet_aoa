@@ -92,7 +92,11 @@ measure_ICX_O3: kernel_icx_O2.o rdtsc.o driver.o
 	$(ICX) -o $(BIN_PATH)$@_$(OPT) $^
 
 measure_phase2: $(OBJS_COMMON) driver.o
+ifeq ($(OPT),TILING)
+	$(CC) -lm -o $(BIN_PATH)$@_$(OPT) $^
+else
 	$(CC) -o $(BIN_PATH)$@_$(OPT) $^
+endif
 
 #==============================================================================
 
@@ -104,7 +108,7 @@ driver_check.o: driver_check.c
 driver_calib.o: driver_calib.c
 	$(CC) $(CFLAGS) -D CALIB -c $< -o $@
 driver.o: driver.c
-	$(CC) $(CFLAGS) -c $<
+	$(CC) -D $(OPT) $(CFLAGS) -c $<
 #==============================================================================
 
 #==============================================================================
@@ -112,9 +116,9 @@ driver.o: driver.c
 #==============================================================================
 kernel.o: kernel.c
 ifeq ($(OPT),TILING)
-    $(CC) $(OPTFLAGS) -D $(OPT) -c $< -o $@ -lm
+	$(CC) $(OPTFLAGS) -D $(OPT) -c $< -o $@ -lm 
 else
-    $(CC) $(OPTFLAGS) -D $(OPT) -c $< -o $@
+	$(CC) $(OPTFLAGS) -D $(OPT) -c $< -o $@
 endif
 
 kernel_O3.o: kernel.c
