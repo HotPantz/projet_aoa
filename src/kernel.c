@@ -54,6 +54,36 @@ void kernel (unsigned n, float x[n], float y[n], float z[n][n]) {
         }
    }
 }
+#elif defined DIVOPTI3
+
+void kernel (unsigned n, float x[n], float y[n], float z[n][n]) {
+
+    unsigned i, j, ii, jj;
+    unsigned tile_size = 16; // adjust the tile size as needed
+
+    for (i = 0; i < n; i++) {
+        y[i] = 1 / y[i];
+    }
+
+    unsigned n_max = n - (n % tile_size);
+    for (ii = 0; ii < n_max; ii += tile_size) {
+        for (jj = 0; jj < n_max; jj += tile_size) {
+            for (i = ii; i < ii + tile_size; i++) {
+                for (j = jj; j < jj + tile_size; j++) {
+                    x[i] += z[i][j] * y[i];
+                }
+            }
+        }
+    }
+
+    // Boucle pour les éléments restants qui ne rentrent pas dans le bloc
+    for (i = n_max; i < n; i++) {
+        for (j = 0; j < n; j++) {
+            x[i] += z[i][j] * y[i];
+        }
+    }
+
+}
 
 #elif defined DOUBLETOSIMPLE
 
