@@ -122,6 +122,37 @@ void kernel(unsigned n, double x[n], const double y[n], const double z[n][n]) {
     }
 }
 
+
+#ifdef OPT_TILING
+#include <immintrin.h>
+void kernel(unsigned n, double x[n], const double y[n], const double z[n][n]) {
+    unsigned i, j, ii, jj;
+    unsigned tile_size = 16; // adjust the tile size as needed
+
+    int n_max = n - (n % tile_size);
+    for (ii = 0; ii < n_max; ii += tile_size) {
+        for (jj = 0; jj < n_max; jj += tile_size) {
+            for (i = ii; i < ii + tile_size; i++) {
+                for (j = jj; j < jj + tile_size; j+=4) {
+                    __m256d z_vec = _mm256_loadu_pd(&z[i][j]);
+                    __m256d y_vec = _mm256_set1_pd(y[i]);
+                    __m256d x_vec = _mm256_loadu_pd(&x[i]);
+                    __m256d result = _mm256_div_pd(z_vec, y_vec);
+                    x_vec = _mm256_add_pd(x_vec, result);
+                    _mm256_storeu_pd(&x[i], x_vec);
+                }
+            }
+        }
+    }
+
+    for (i = n_max; i < n; i++) {
+        for (j = n_max; j < n; j++) {
+            x[i] += z[i][j] / y[i];
+        }
+    }
+}
+#endif
+
 #else
 /* original */
 void kernel (unsigned n, double x[n], const double y[n], const double z[n][n]) {
