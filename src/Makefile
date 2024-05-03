@@ -117,6 +117,8 @@ driver.o: driver.c
 kernel.o: kernel.c
 ifeq ($(OPT),TILING)
 	$(CC) $(OPTFLAGS) -D $(OPT) -c $< -o $@ -lm 
+else ifeq ($(OPT),OPT_INTRINSICS)
+	$(CC) $(OPTFLAGS) -D $(OPT) -c $< -o $@ -mavx
 else
 	$(CC) $(OPTFLAGS) -D $(OPT) -c $< -o $@
 endif
