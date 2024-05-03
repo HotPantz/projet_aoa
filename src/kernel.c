@@ -22,7 +22,7 @@ void kernel(unsigned n, double x[n], const double y[n], const double z[n][n]) {
         }
 
         // Traitement des éléments restants si n n'est pas divisible par 4
-        for (; j < n; j++) {
+        for (j = 0; j < n; j++) {
             x[i] += z[i][j] / y[i];
         }
     }
