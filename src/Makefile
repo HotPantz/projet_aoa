@@ -45,7 +45,7 @@ icx: measure_ICX measure_ICX_O3
 #Custom AOCC target (specific install location)
 fred: measure_AOCC measure_AOCC_03
 sami: measure_AOCC_sami measure_AOCC_O3_sami
-phase2: measure_phase2
+phase2: clean measure_phase2
 #==============================================================================
 
 check:	$(OBJS_COMMON) driver_check.o
