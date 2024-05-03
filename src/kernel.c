@@ -26,22 +26,9 @@ void kernel(unsigned n, double x[n], const double y[n], const double z[n][n]) {
             x[i] += z[i][j] / y[i];
         }
     }
-
 #elif defined DIVOPTI
 
 void kernel (unsigned n, double x[n], const double y[n], const double z[n][n]) {
-   unsigned i, j;
-
-   for (i = 0; i < n; i++) {
-        for (j = 0; j < n; j++) {
-            x[i] += z[i][j] * 1 / (y[i]);
-        }
-   }
-}
-
-#elif defined DIVOPTI2
-
-void kernel (unsigned n, float x[n], float y[n], float z[n][n]) {
    unsigned i, j;
 
    for (i = 0; i < n; i++) {
@@ -54,7 +41,7 @@ void kernel (unsigned n, float x[n], float y[n], float z[n][n]) {
         }
    }
 }
-#elif defined DIVOPTI3
+#elif defined ALLOPTI
 
 void kernel (unsigned n, float x[n], float y[n], float z[n][n]) {
 
@@ -82,7 +69,6 @@ void kernel (unsigned n, float x[n], float y[n], float z[n][n]) {
             x[i] += z[i][j] * y[i];
         }
     }
-
 }
 
 #elif defined DOUBLETOSIMPLE
