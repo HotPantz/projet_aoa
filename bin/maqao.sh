@@ -19,7 +19,7 @@ if [ ! -x "./measure_phase2_$opti_type" ]; then
 fi
 
 # Lancer la commande avec maqao
-if [ $2 -eq "hsr" ]; then #high sampling rate
+if [ $2 == "hsr" ]; then #high sampling rate
 	maqao OV --replace -R1 -xp="$opti_type" -uarch=ZEN_V1 -- "./measure_phase2_$opti_type" 300 18 1750
 else
 	maqao OV --replace --sampling-rate=high -R1 -xp="$opti_type" -uarch=ZEN_V1 -- "./measure_phase2_$opti_type" 300 18 1750
