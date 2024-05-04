@@ -38,7 +38,7 @@ void kernel (unsigned n, double x[n], double y[n], const double z[n][n]) {
 
    for (i = 0; i < n; i++) {
         for (j = 0; j < n; j++) {
-            x[i] += z[i][j] / y[i];
+            x[i] += z[i][j] * y[i];
         }
    }
 }
