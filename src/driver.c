@@ -6,9 +6,10 @@
 
 extern uint64_t rdtsc ();
 
-extern void kernel (unsigned n, double x[n], const double y[n], const double z[n][n]);
 
 #ifdef DOUBLETOSIMPLE
+   extern void kernel (unsigned n, float x[n], const float y[n], const float z[n][n]);
+   
    static void init_array_2D (int n, float a[n][n]){
       int i, j;
       for (i=0; i<n; i++)
@@ -21,6 +22,8 @@ extern void kernel (unsigned n, double x[n], const double y[n], const double z[n
          a[i] = (float) rand() / RAND_MAX;
    }
 #else
+   extern void kernel (unsigned n, double x[n], const double y[n], const double z[n][n]);
+   
    static void init_array_2D (int n, double a[n][n]) {
       int i, j;
       for (i=0; i<n; i++)

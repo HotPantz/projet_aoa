@@ -43,7 +43,7 @@ void kernel (unsigned n, double x[n], const double y[n], const double z[n][n]) {
 }
 #elif defined ALLOPTI
 
-void kernel (unsigned n, float x[n], float y[n], float z[n][n]) {
+void kernel (unsigned n, float x[n], float y[n], const float z[n][n]) {
 
     unsigned i, j, ii, jj;
     unsigned tile_size = 16; // adjust the tile size as needed
@@ -71,11 +71,44 @@ void kernel (unsigned n, float x[n], float y[n], float z[n][n]) {
     }
 }
 
+#elif defined ALLOPTI_UNROLLING
+
+void kernel (unsigned n, float x[n], float y[n], const float z[n][n]) {
+
+    unsigned i, j, ii, jj;
+    unsigned tile_size = 16; // adjust the tile size as needed
+
+    for (i = 0; i < n; i++) {
+        y[i] = 1 / y[i];
+    }
+
+    unsigned n_max = n - (n % tile_size);
+    for (ii = 0; ii < n_max; ii += tile_size) {
+        for (jj = 0; jj < n_max; jj += tile_size) {
+            for (i = ii; i < ii + tile_size; i++) {
+                for (j = jj; j < jj + tile_size; j+=4) {
+                    x[i] += z[i][j] * y[i];
+                    x[i] += z[i][j+1] * y[i];
+                    x[i] += z[i][j+2] * y[i];
+                    x[i] += z[i][j+3] * y[i];
+                }
+            }
+        }
+    }
+
+    // Boucle pour les éléments restants qui ne rentrent pas dans le bloc
+    for (i = n_max; i < n; i++) {
+        for (j = 0; j < n; j++) {
+            x[i] += z[i][j] * y[i];
+        }
+    }
+}
+
 #elif defined ALLOPTI2_INTRINSICS
 
 #include <immintrin.h>
 
-void kernel (unsigned n, float x[n], float y[n], float z[n][n]) {
+void kernel (unsigned n, float x[n], float y[n], const float z[n][n]) {
 
     unsigned i, j, ii, jj;
     unsigned tile_size = 16; // adjust the tile size as needed
