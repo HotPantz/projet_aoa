@@ -26,9 +26,10 @@ void kernel(unsigned n, double x[n], const double y[n], const double z[n][n]) {
             x[i] += z[i][j] / y[i];
         }
     }
+}
 #elif defined DIVOPTI
 
-void kernel (unsigned n, double x[n], const double y[n], const double z[n][n]) {
+void kernel (unsigned n, double x[n], double y[n], const double z[n][n]) {
    unsigned i, j;
 
    for (i = 0; i < n; i++) {
