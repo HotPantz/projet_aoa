@@ -20,6 +20,7 @@ OPTFLAGS=-O2 -g -Wall #Default "measure" : -O2
 OPTFLAGS_O3=-O3 -g
 OPTFLAGS_O3NATIVE=-O3 -march=native -g
 OPTFLAGS_OFAST=-Ofast -g
+OPTFLAGS_OFASTNATIVE=-Ofast -march=native -g
 OPTFLAGS_AVX2=-O3 -mavx2 -g #YMM vectorization 
 OPT_OCUSTOM=-O3 -ffinite-math-only -freciprocal-math -fno-math-errno -funsafe-math-optimizations -ffloat-store -g
 
@@ -46,7 +47,7 @@ icx: measure_ICX measure_ICX_O3
 fred: measure_AOCC measure_AOCC_03
 sami: measure_AOCC_sami measure_AOCC_O3_sami
 phase2: clean measure_phase2
-phase2_flags: clean measure_02NATIVE measure_O3 measure_OFast measure_O3NATIVE
+phase2_flags: clean measure_02NATIVE measure_O3 measure_OFast measure_OFastNATIVE measure_O3NATIVE measure_O3NATIVE_MORE measure_O3NATIVE_VECT
 #==============================================================================
 
 check:	$(OBJS_COMMON) driver_check.o
@@ -80,7 +81,28 @@ else
 	$(CC) -o $(BIN_PATH)$@_$(CC)_$(OPT) $^
 endif
 
+measure_OFastNATIVE: kernel_OFAST_NATIVE.o rdtsc.o driver.o
+ifeq ($(OPT),TILING)
+	$(CC) -lm -o $(BIN_PATH)$@_$(CC)_$(OPT) $^
+else
+	$(CC) -o $(BIN_PATH)$@_$(CC)_$(OPT) $^
+endif
+
 measure_O3NATIVE: kernel_O3NATIVE.o rdtsc.o driver.o
+ifeq ($(OPT),TILING)
+	$(CC) -lm -o $(BIN_PATH)$@_$(CC)_$(OPT) $^
+else
+	$(CC) -o $(BIN_PATH)$@_$(CC)_$(OPT) $^
+endif
+
+measure_O3NATIVE_MORE: kernel_O3NATIVE_MORE.o rdtsc.o driver.o
+ifeq ($(OPT),TILING)
+	$(CC) -lm -o $(BIN_PATH)$@_$(CC)_$(OPT) $^
+else
+	$(CC) -o $(BIN_PATH)$@_$(CC)_$(OPT) $^
+endif
+
+measure_O3NATIVE_VECT: kernel_O3NATIVE_VECT.o rdtsc.o driver.o
 ifeq ($(OPT),TILING)
 	$(CC) -lm -o $(BIN_PATH)$@_$(CC)_$(OPT) $^
 else
@@ -202,6 +224,15 @@ else
 	$(CC) $(OPTFLAGS_OFAST) -D $(OPT) -c $< -o $@
 endif
 
+kernel_OFAST_NATIVE.o: kernel.c
+ifeq ($(OPT),TILING)
+	$(CC) $(OPTFLAGS_OFASTNATIVE) -D $(OPT) -c $< -o $@ -lm 
+else ifeq ($(OPT),OPT_INTRINSICS)
+	$(CC) $(OPTFLAGS_OFAST) -D $(OPT) -c $< -o $@ -mavx
+else
+	$(CC) $(OPTFLAGS_OFASTNATIVE) -D $(OPT) -c $< -o $@
+endif
+
 kernel_O3NATIVE.o: kernel.c
 ifeq ($(OPT),TILING)
 	$(CC) $(OPTFLAGS_O3NATIVE) -D $(OPT) -c $< -o $@ -lm 
@@ -209,6 +240,24 @@ else ifeq ($(OPT),OPT_INTRINSICS)
 	$(CC) $(OPTFLAGS_O3NATIVE) -D $(OPT) -c $< -o $@ -mavx
 else
 	$(CC) $(OPTFLAGS_O3NATIVE) -D $(OPT) -c $< -o $@
+endif
+
+kernel_O3NATIVE_MORE.o: kernel.c
+ifeq ($(OPT),TILING)
+	$(CC) $(OPTFLAGS_O3NATIVE) -ftree-vectorize -ffast-math -D $(OPT) -c $< -o $@ -lm 
+else ifeq ($(OPT),OPT_INTRINSICS)
+	$(CC) $(OPTFLAGS_O3NATIVE) -ftree-vectorize -ffast-math -D $(OPT) -c $< -o $@ -mavx
+else
+	$(CC) $(OPTFLAGS_O3NATIVE) -ftree-vectorize -ffast-math -D $(OPT) -c $< -o $@
+endif
+
+kernel_O3NATIVE_VECT.o: kernel.c
+ifeq ($(OPT),TILING)
+	$(CC) $(OPTFLAGS_O3NATIVE) -ftree-vectorize -D $(OPT) -c $< -o $@ -lm 
+else ifeq ($(OPT),OPT_INTRINSICS)
+	$(CC) $(OPTFLAGS_O3NATIVE) -ftree-vectorize -D $(OPT) -c $< -o $@ -mavx
+else
+	$(CC) $(OPTFLAGS_O3NATIVE) -ftree-vectorize -D $(OPT) -c $< -o $@
 endif
 
 kernel_AVX2.o: kernel.c
@@ -289,4 +338,4 @@ clean:
 	rm -rf $(OBJS_COMMON) $(OBJS_CUSTOM) $(OBJS_ICX) driver_check.o driver_calib.o driver.o check calibrate measure 
 
 clean_phase2: 
-	rm -rf $(OBJS_COMMON) $(OBJS_CUSTOM) $(OBJS_ICX) driver_check.o driver_calib.o driver.o check calibrate measure kernel_O2NATIVE.o measure_O3.o measure_OFast.o measure_O3NATIVE.o
+	rm -rf $(OBJS_COMMON) $(OBJS_CUSTOM) $(OBJS_ICX) driver_check.o driver_calib.o driver.o check calibrate measure kernel_O2NATIVE.o measure_O3.o measure_OFast.o measure_O3NATIVE.o measure_OFastNATIVE.o
